@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyTripAssistance | Premium Travel AI</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body
+  class="bg-luxury-dark text-luxury-light font-sans antialiased overflow-x-hidden selection:bg-luxury-accent selection:text-black">
+
+  <!-- Navbar / Logo -->
+  <header class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex items-center justify-between pointer-events-none">
+    <div class="flex items-center space-x-3 pointer-events-auto cursor-pointer group">
+      <!-- Logo: White circle with a small dark plane -->
+      <div
+        class="w-10 h-10 bg-white rounded-full flex items-center justify-center transform group-hover:scale-105 transition-transform">
+        <svg class="w-5 h-5 text-black transform rotate-45" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+        </svg>
+      </div>
+      <!-- Brand Name -->
+      <span class="text-xl md:text-2xl font-bold tracking-tight text-white group-hover:text-white/80 transition-colors">
+        MyTripAI
+      </span>
+    </div>
+
+    <!-- Toggle B2C / B2B -->
+    <div
+      class="pointer-events-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-1 flex items-center">
+      <a href="/" class="px-6 py-2 rounded-full bg-white text-black font-semibold text-sm transition-colors">
+        Viajeros
+      </a>
+      <a href="/agencies.html"
+        class="px-6 py-2 rounded-full text-white/60 hover:text-white font-medium text-sm transition-colors">
+        Agencias
+      </a>
+    </div>
+  </header>
+
+  <!-- 1. Header / Hero Section with Canvas 1 -->
+  <section id="hero" class="relative w-full h-[300vh]">
+    <div class="sticky top-0 w-full h-screen overflow-hidden">
+      <!-- Canvas for sequence 1: Window to Sky
+           User must name files inside public/secuence_1/ezgif-frame-001.jpg etc. 
+           or we can just link to ../secuence_1/ezgif-frame-001.jpg if using Vite dev server from root. -->
+      <canvas id="canvas-hero" class="w-full h-full object-cover"></canvas>
+
+      <!-- Overlay Gradient for better text readability -->
+      <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+
+      <!-- Hero Content -->
+      <div class="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 text-center pb-20 mt-24">
+        <h1 class="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-6 opacity-0 translate-y-10"
+          id="hero-title">
+          La forma más inteligente de viajar empieza aquí.
+        </h1>
+
+        <!-- Chat Input UI Element -->
+        <div
+          class="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2 flex items-center mb-8 opacity-0 translate-y-10"
+          id="hero-input">
+          <input type="text" placeholder="Ej. Planea un viaje de 5 días a Tokio..."
+            class="w-full bg-transparent text-white placeholder-white/60 px-6 py-4 focus:outline-none text-lg" />
+          <button class="bg-white text-black p-4 rounded-full ml-2 hover:bg-gray-200 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+        </div>
+
+        <p class="text-lg md:text-xl text-white/80 max-w-3xl mb-10 opacity-0" id="hero-subtitle">
+          Olvida las pestañas infinitas y el estrés de las reservas. MyTripAssistance crea itinerarios completos, con
+          precios reales y rutas inteligentes en minutos.
+        </p>
+
+        <button
+          class="bg-luxury-accent text-black font-semibold text-lg px-8 py-4 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transform hover:scale-105 transition-all duration-300 opacity-0"
+          id="hero-cta">
+          Crear mi itinerario gratis
+        </button>
+
+        <p class="text-sm text-white/50 mt-8 opacity-0 uppercase tracking-widest" id="hero-social">
+          +10,000 viajes diseñados este mes
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Sección: El Problema -->
+  <!-- Modificado: Fondo es la última imagen de la secuencia con un degradado suave -->
+  <section id="problem" style="background-image: url('/secuence_1/ezgif-frame-120.jpg');"
+    class="relative w-full min-h-screen bg-cover bg-bottom flex flex-col items-center justify-center py-40 px-4 z-30">
+    <!-- Difuminador integral para transición de cielo a tema oscuro (sección 3) -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-luxury-dark/80 to-luxury-dark pointer-events-none z-0">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 z-10 relative">
+      <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-white/90" id="problem-title">
+        ¿Sigues perdiendo horas planeando tu viaje?
+      </h2>
+      <!-- Text size reduced, initial color changed to a visible gray (text-gray-500) -->
+      <p
+        class="text-2xl md:text-4xl lg:text-5xl text-gray-500 font-bold leading-tight tracking-tight problem-text-reveal">
+        El viajero promedio pasa más de 16 horas comparando vuelos, hoteles y actividades antes de reservar. <span
+          class="text-gray-500 transition-colors duration-300">Nosotros simplificamos todo el proceso para que puedas
+          decidir más rápido y dedicar menos tiempo a planear y más a viajar.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Sección: Preparativos (Takeoff Flow) con Canvas 2 -->
+  <!-- Reducimos la altura a 300vh ya que son solo 2 pasos de texto ahora en lugar de 4 -->
+  <section id="benefits" class="relative w-full h-[300vh] bg-luxury-dark z-30">
+    <div class="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
+
+      <!-- Centered Canvas for sequence 2: Plane Model (plane-frames) -->
+      <div class="absolute inset-0 z-0">
+        <canvas id="canvas-plane"
+          class="w-full h-full object-contain pointer-events-none opacity-80 mix-blend-screen mix-blend-lighten"></canvas>
+      </div>
+
+      <!-- Content Container -->
+      <div class="relative z-10 w-full h-full max-w-7xl mx-auto px-4 lg:px-12 flex flex-col justify-center">
+
+        <div class="absolute top-40 left-0 w-full text-center header-benefits opacity-0">
+          <h3 class="text-5xl md:text-7xl lg:text-[6rem] font-bold text-white/90 px-4 tracking-tight">¿Listo para
+            despegar?</h3>
+        </div>
+
+        <!-- 2-Step Flow items appearing/disappearing -->
+        <div class="relative w-full h-full flex items-center mt-20">
+
+          <!-- Step 1: Left -->
+          <div class="benefit-item absolute left-0 md:left-10 w-full md:w-2/5 lg:w-1/3 opacity-0 translate-y-10"
+            id="benefit-1">
+            <div class="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
+              <h4 class="text-3xl lg:text-4xl font-bold text-luxury-accent mb-6">Cuéntanos tu viaje</h4>
+              <p class="text-xl lg:text-2xl text-white/90 font-light leading-relaxed">Solo dinos tu destino, fechas y
+                presupuesto. MyTripAI entiende tu estilo de viaje y lo que quieres descubrir.</p>
+            </div>
+          </div>
+
+          <!-- Step 2: Right -->
+          <div
+            class="benefit-item absolute right-0 md:right-10 w-full md:w-2/5 lg:w-1/3 opacity-0 translate-y-10 text-right md:text-left"
+            id="benefit-2">
+            <div class="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
+              <h4 class="text-3xl lg:text-4xl font-bold text-luxury-accent mb-6">Tu itinerario listo para despegar</h4>
+              <p class="text-xl lg:text-2xl text-white/90 font-light leading-relaxed">En segundos, nuestra IA analiza
+                vuelos, hoteles y experiencias para crear un plan optimizado listo para reservar.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 3.5 Sección: Interactive Features (Cream background) -->
+  <section id="interactive-features" class="relative w-full bg-[#F9F6F0] text-black z-30 flex flex-col lg:flex-row">
+
+    <!-- Left Side: Accordion -->
+    <div class="w-full lg:w-1/2 py-32 px-8 lg:px-20 flex flex-col justify-center">
+      <div class="max-w-xl mx-auto w-full features-accordion-container">
+
+        <!-- Feature 1 -->
+        <div class="feature-accordion-item border-b border-black/10 py-8 cursor-pointer"
+          data-image="/benefits_section/style_and_interest.png" id="feat-item-1">
+          <div class="flex justify-between items-center transition-all">
+            <h3 class="text-2xl lg:text-3xl font-medium tracking-tight">Diseño a tu medida</h3>
+            <span class="text-3xl text-black/50 icon">−</span>
+          </div>
+          <div
+            class="feature-content overflow-hidden transition-all duration-500 text-lg leading-relaxed text-black/70 mt-6"
+            style="max-height: 500px;">
+            No más itinerarios genéricos. Tu estilo, tu ritmo y tus intereses dictan la ruta. Desde el restaurante local
+            con más views en TikTok, hasta la logística más compleja.
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-accordion-item border-b border-black/10 py-8 cursor-pointer"
+          data-image="/benefits_section/price_comfortable.png" id="feat-item-2">
+          <div class="flex justify-between items-center transition-all">
+            <h3 class="text-2xl lg:text-3xl font-medium tracking-tight">Inteligencia en tu presupuesto</h3>
+            <span class="text-3xl text-black/50 icon">+</span>
+          </div>
+          <div
+            class="feature-content overflow-hidden transition-all duration-500 text-lg leading-relaxed text-black/70 mt-0"
+            style="max-height: 0px;">
+            Accedemos a ofertas en tiempo real. MyTripAI no solo busca, encuentra el equilibrio perfecto entre calidad y
+            ahorro en vuelos y hoteles.
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-accordion-item border-b border-black/10 py-8 cursor-pointer"
+          data-image="/benefits_section/gems_places_new_places.png" id="feat-item-3">
+          <div class="flex justify-between items-center transition-all">
+            <h3 class="text-2xl lg:text-3xl font-medium tracking-tight">Escuchamos al viajero</h3>
+            <span class="text-3xl text-black/50 icon">+</span>
+          </div>
+          <div
+            class="feature-content overflow-hidden transition-all duration-500 text-lg leading-relaxed text-black/70 mt-0"
+            style="max-height: 0px;">
+            Vamos más allá de las trampas para turistas. Descubre secretos locales y destinos auténticos que no aparecen
+            en las guías convencionales.
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-accordion-item border-b border-black/10 py-8 cursor-pointer"
+          data-image="/benefits_section/safety_benefit.png" id="feat-item-4">
+          <div class="flex justify-between items-center transition-all">
+            <h3 class="text-2xl lg:text-3xl font-medium tracking-tight">Respaldo total</h3>
+            <span class="text-3xl text-black/50 icon">+</span>
+          </div>
+          <div
+            class="feature-content overflow-hidden transition-all duration-500 text-lg leading-relaxed text-black/70 mt-0"
+            style="max-height: 0px;">
+            Relájate, nosotros monitoreamos. Desde cambios de vuelo hasta gestión de reservas, MyTripAI supervisa tu
+            viaje para que tu única tarea sea disfrutar.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Side: Sticky Image -->
+    <div
+      class="w-full lg:w-1/2 h-[60vh] lg:h-screen lg:sticky lg:top-0 order-first lg:order-last flex items-center justify-center p-8 lg:p-20 overflow-hidden bg-white/50">
+      <img id="feature-active-image" src="/benefits_section/style_and_interest.png"
+        class="w-full h-full object-contain drop-shadow-2xl transition-opacity duration-500 ease-in-out"
+        alt="Feature showcase" />
+    </div>
+  </section>
+
+  <!-- 4. Sección: FAQ -->
+  <section class="w-full py-32 px-4 bg-luxury-dark z-30 relative" id="faq-section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-5xl font-bold mb-16 text-center tracking-tight">FAQ</h2>
+      <div class="faq-container border-t border-white/20">
+
+        <div class="faq-item border-b border-white/20">
+          <button class="w-full py-8 flex justify-between items-center text-left focus:outline-none group">
+            <span class="text-2xl font-light group-hover:text-luxury-accent transition-colors">¿Qué es MyTripAI?</span>
+            <span class="text-3xl font-light transform transition-transform duration-300 icon">+</span>
+          </button>
+          <div class="faq-content overflow-hidden max-h-0 transition-all duration-500 text-lg text-white/60 mb-0">
+            Es tu agente de viajes digital. Una IA que diseña planes completos (vuelos, hoteles, cenas y rutas) listos
+            para reservar en minutos.
+          </div>
+        </div>
+
+        <div class="faq-item border-b border-white/20">
+          <button class="w-full py-8 flex justify-between items-center text-left focus:outline-none group">
+            <span class="text-2xl font-light group-hover:text-luxury-accent transition-colors">¿Cómo funciona?</span>
+            <span class="text-3xl font-light transform transition-transform duration-300 icon">+</span>
+          </button>
+          <div class="faq-content overflow-hidden max-h-0 transition-all duration-500 text-lg text-white/60 mb-0">
+            Tú nos das el destino, fechas y presupuesto; nosotros te entregamos un plan diario optimizado con
+            disponibilidad real.
+          </div>
+        </div>
+
+        <div class="faq-item border-b border-white/20">
+          <button class="w-full py-8 flex justify-between items-center text-left focus:outline-none group">
+            <span class="text-2xl font-light group-hover:text-luxury-accent transition-colors">¿Es mejor que una agencia
+              tradicional?</span>
+            <span class="text-3xl font-light transform transition-transform duration-300 icon">+</span>
+          </button>
+          <div class="faq-content overflow-hidden max-h-0 transition-all duration-500 text-lg text-white/60 mb-0">
+            Somos más rápidos, estamos en tu bolsillo 24/7 y comparamos miles de opciones en segundos para darte un
+            precio imbatible y total libertad.
+          </div>
+        </div>
+
+        <div class="faq-item border-b border-white/20">
+          <button class="w-full py-8 flex justify-between items-center text-left focus:outline-none group">
+            <span class="text-2xl font-light group-hover:text-luxury-accent transition-colors">¿Puedo planear rutas
+              largas o familiares?</span>
+            <span class="text-3xl font-light transform transition-transform duration-300 icon">+</span>
+          </button>
+          <div class="faq-content overflow-hidden max-h-0 transition-all duration-500 text-lg text-white/60 mb-0">
+            ¡Es nuestra especialidad! Optimizamos traslados entre ciudades, sugerimos paradas estratégicas y buscamos
+            hoteles o airbnb family-friendly.
+          </div>
+        </div>
+
+        <div class="faq-item border-b border-white/20">
+          <button class="w-full py-8 flex justify-between items-center text-left focus:outline-none group">
+            <span class="text-2xl font-light group-hover:text-luxury-accent transition-colors">¿Es gratuito?</span>
+            <span class="text-3xl font-light transform transition-transform duration-300 icon">+</span>
+          </button>
+          <div class="faq-content overflow-hidden max-h-0 transition-all duration-500 text-lg text-white/60 mb-0">
+            Puedes empezar a planear gratis hoy mismo. Para viajeros frecuentes, nuestra suscripción Premium ($49/año)
+            ofrece funciones ilimitadas y soporte prioritario.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Sección: Nuestros socios (Marquee) -->
+  <section class="w-full py-20 bg-black overflow-hidden border-y border-white/5 z-30 relative">
+    <div class="marquee-wrapper flex items-center">
+      <div class="marquee-content flex items-center space-x-16 px-8 animate-marquee whitespace-nowrap opacity-60">
+        <!-- SVG Logos (Placeholders) -->
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Booking.com</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Airbnb</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Expedia</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Skyscanner</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Tripadvisor</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Kayak</div>
+
+        <!-- Repeat for seamless loop -->
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Booking.com</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Airbnb</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Expedia</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Skyscanner</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Tripadvisor</div>
+        <div class="text-3xl font-bold tracking-widest uppercase font-serif text-white/50">Kayak</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Testimonials (Glassmorphism Cards in Scroll) -->
+  <section class="w-full py-32 px-4 bg-luxury-dark z-30 relative overflow-hidden" id="testimonials">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-5xl font-bold mb-20 text-center">Lo que dicen nuestros viajeros</h2>
+
+      <!-- Horizontal Scrollable Container -->
+      <div class="flex space-x-8 overflow-x-auto pb-10 hide-scrollbar snap-x snap-mandatory perspective-1000"
+        id="testimonials-container">
+
+        <div
+          class="w-[85vw] md:w-[600px] shrink-0 snap-center bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-3xl transform hover:-translate-y-2 transition-transform duration-300">
+          <svg class="w-10 h-10 text-luxury-accent mb-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+          <p
+            class="text-xl md:text-2xl font-light mb-8 leading-relaxed whitespace-normal break-words whitespace-pre-line text-wrap">
+            "Me ahorró semanas de investigación. El
+            itinerario me llevó a un restaurante en Kioto que no aparecía en ningún blog, y fue la mejor comida de mi
+            vida."</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-zinc-800 mr-4 overflow-hidden"><img
+                src="https://i.pravatar.cc/150?u=1" class="w-full h-full object-cover"></div>
+            <div>
+              <p class="font-bold">Carlos D.</p>
+              <p class="text-luxury-accent text-sm uppercase tracking-widest">Viaje a Japón</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="w-[85vw] md:w-[600px] shrink-0 snap-center bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-3xl transform hover:-translate-y-2 transition-transform duration-300">
+          <svg class="w-10 h-10 text-luxury-accent mb-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+          <p
+            class="text-xl md:text-2xl font-light mb-8 leading-relaxed whitespace-normal break-words whitespace-pre-line text-wrap">
+            "Dudaba de usar IA para nuestra luna de miel.
+            Terminó consiguiéndonos un resort en Maldivas con upgrade automático a villa sobre el agua. Impecable."</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-zinc-800 mr-4 overflow-hidden"><img
+                src="https://i.pravatar.cc/150?u=2" class="w-full h-full object-cover"></div>
+            <div>
+              <p class="font-bold">Sofía y Marco</p>
+              <p class="text-luxury-accent text-sm uppercase tracking-widest">Luna de Miel en Maldivas</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="w-[85vw] md:w-[600px] shrink-0 snap-center bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-3xl transform hover:-translate-y-2 transition-transform duration-300">
+          <svg class="w-10 h-10 text-luxury-accent mb-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+          <p
+            class="text-xl md:text-2xl font-light mb-8 leading-relaxed whitespace-normal break-words whitespace-pre-line text-wrap">
+            "Por fin alguien entiende que viajar por
+            trabajo no tiene que ser miserable. Me armó un itinerario en Londres combinando reuniones con excelente
+            gastronomía."</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-zinc-800 mr-4 overflow-hidden"><img
+                src="https://i.pravatar.cc/150?u=3" class="w-full h-full object-cover"></div>
+            <div>
+              <p class="font-bold">Andrés M.</p>
+              <p class="text-luxury-accent text-sm uppercase tracking-widest">Viaje de Negocios, UK</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Cierre / Footer -->
+  <footer
+    class="w-full min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-end relative z-40 overflow-hidden px-4 md:px-12 lg:px-20 pb-20">
+
+    <!-- Video de la Tierra Girando en el centro -->
+    <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+      <video autoplay loop muted playsinline
+        class="w-full h-full object-cover md:object-contain opacity-80 md:scale-110">
+        <source src="/earth_rotation_footer.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Texto gigante y oscuro en el fondo simulando la referencia de "Global" -->
+    <div class="absolute top-0 left-0 w-full flex justify-center z-0 pt-0 md:pt-10 select-none pointer-events-none">
+      <h2
+        class="text-[14vw] font-black tracking-tighter text-white/5 leading-none whitespace-pre md:whitespace-nowrap text-center">
+        ¿Listo para tu
+        aventura?
+      </h2>
+    </div>
+
+    <!-- Layout a 3 columnas estilo referencia (Contactos, Botón, Lema) -->
+    <div
+      class="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-end justify-between min-h-[50vh] gap-12 md:gap-4 pb-10">
+
+      <!-- Izquierda: Lema -->
+      <div class="w-full md:w-1/3 text-left">
+        <h3 class="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-white/90">
+          Viaja a cualquier lugar con total comodidad y control
+        </h3>
+      </div>
+
+      <!-- Centro: Botón de CTA interactivo -->
+      <div class="w-full md:w-1/3 flex justify-center self-center md:self-end">
+        <button
+          class="group inline-flex items-center space-x-4 bg-white text-black rounded-full pl-6 pr-2 py-2 hover:bg-gray-200 transition-all duration-300">
+          <span class="font-bold text-sm md:text-base tracking-wide">Empieza tu viaje</span>
+          <div
+            class="bg-black/10 rounded-full p-2 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+            <!-- Icono de avión emulando la referencia -->
+            <svg class="w-5 h-5 text-black transform rotate-45" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- Derecha: Mail y Contactos -->
+      <div class="w-full md:w-1/3 text-left md:text-right flex flex-col items-start md:items-end">
+        <p class="font-bold text-lg md:text-xl text-white/90">info@mytripassistance.com</p>
+        <p class="font-bold text-lg md:text-xl text-white/90">+34 900 123 456</p>
+        <div class="h-px w-12 bg-white/20 mt-8 mb-4"></div>
+        <p class="text-xs tracking-widest uppercase text-white/50 font-bold">Para Consultas</p>
+      </div>
+
+    </div>
+
+    <!-- Copyright (Opcional, muy sutil abajo) -->
+    <div class="absolute bottom-6 w-full text-center text-white/30 text-xs tracking-wider z-10">
+      <p>&copy; 2026 MyTripAssistance.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

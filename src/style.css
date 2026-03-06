@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Utilities for Premium Vibe */
+@layer utilities {
+  .text-shadow-premium {
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Marquee Animation */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+}
+
+/* Specific component styles not suited for utility classes */
+.faq-item button.active .icon {
+  transform: rotate(45deg);
+  color: #d4af37;
+}
+
+/* Better performance for animations */
+.benefit-item, .hero-title, .hero-input, .hero-subtitle, .hero-cta, .hero-social {
+  will-change: transform, opacity;
+}
